@@ -111,7 +111,7 @@ class ElasticSearchPipeline(object):
 
     def index_item(self, item, spider):
 
-        index_name = self.settings['ELASTICSEARCH_INDEX']
+        index_name = spider.name#self.settings['ELASTICSEARCH_INDEX']
         index_suffix_format = self.settings.get('ELASTICSEARCH_INDEX_DATE_FORMAT', None)
         index_suffix_key = self.settings.get('ELASTICSEARCH_INDEX_DATE_KEY', None)
         index_suffix_key_format = self.settings.get('ELASTICSEARCH_INDEX_DATE_KEY_FORMAT', None)
@@ -126,7 +126,7 @@ class ElasticSearchPipeline(object):
             index_name += "-" + index_suffix_key
 
         index_action = {
-            '_index': spider.name,
+            '_index': index_name,
             '_type': self.settings['ELASTICSEARCH_TYPE'],
             '_source': dict(item)
         }
