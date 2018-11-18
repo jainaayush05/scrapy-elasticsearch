@@ -40,7 +40,7 @@ class ElasticSearchPipeline(object):
             if settings[setting_key] is None:
                 raise InvalidSettingsException('%s is not defined in settings.py' % setting_key)
 
-        required_settings = {'ELASTICSEARCH_INDEX'}
+        required_settings = {'ELASTICSEARCH_INDEX','ELASTICSEARCH_TYPE'}
 
         for required_setting in required_settings:
             validate_setting(required_setting)
@@ -127,7 +127,7 @@ class ElasticSearchPipeline(object):
 
         index_action = {
             '_index': spider.name,
-            #'_type': self.settings['ELASTICSEARCH_TYPE'],
+            '_type': self.settings['ELASTICSEARCH_TYPE'],
             '_source': dict(item)
         }
 
